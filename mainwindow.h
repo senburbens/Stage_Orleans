@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <player.h>
+#include <QtGui>
 
 namespace Ui {
     class MainWindow;
@@ -27,6 +28,8 @@ private slots:
     void on_connectToCamera_clicked();
     // Slot for the play push button.
     void on_playStopButton_clicked();
+    //TO save the video streaming of the camera
+    void on_saveVideo_clicked();
 
 private:
     Ui::MainWindow *ui;

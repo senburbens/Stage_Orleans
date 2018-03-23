@@ -25,6 +25,10 @@ class Player : public QThread
     VideoCapture capture;
     Mat RGBframe;
     QImage img;
+    string adresseCamera;
+    VideoWriter videoWriter;
+    int frame_width;
+    int frame_height;
 
  signals:
  //Signal to output frame to be displayed

@@ -22,7 +22,7 @@
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>601</width>
+      <width>591</width>
       <height>391</height>
      </rect>
     </property>
@@ -39,9 +39,9 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>610</x>
       <y>60</y>
-      <width>107</width>
+      <width>127</width>
       <height>141</height>
      </rect>
     </property>
@@ -54,6 +54,10 @@
        <property name="text">
         <string>Charger Video</string>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../Desktop/browser.ico</normaloff>../Desktop/browser.ico</iconset>
+       </property>
       </widget>
      </item>
      <item>
@@ -63,6 +67,10 @@
        </property>
        <property name="text">
         <string>Camera</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../Desktop/camera.jpg</normaloff>../Desktop/camera.jpg</iconset>
        </property>
       </widget>
      </item>
@@ -81,21 +89,35 @@
      </item>
      <item>
       <widget class="QPushButton" name="playStopButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="styleSheet">
         <string notr="true">font-weight : bold;</string>
        </property>
        <property name="text">
         <string>Play</string>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../Documents/images/go.png</normaloff>../Documents/images/go.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="playStopButton_2">
+      <widget class="QPushButton" name="saveVideo">
        <property name="styleSheet">
         <string notr="true">font-weight : bold;</string>
        </property>
        <property name="text">
         <string>Save VIdeo</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../Desktop/save.jpeg</normaloff>../Desktop/save.jpeg</iconset>
        </property>
       </widget>
      </item>
@@ -117,7 +139,7 @@
         <string notr="true">background-color: green; color:white;</string>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Bouton 1</string>
        </property>
       </widget>
      </item>
@@ -127,7 +149,7 @@
         <string notr="true">background-color:red;color:white;</string>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Bouton 2</string>
        </property>
       </widget>
      </item>

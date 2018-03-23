@@ -1,10 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
+
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow){
     myPlayer = new Player();
     QObject::connect(myPlayer, SIGNAL(processedImage(QImage)),
                               this, SLOT(updatePlayerUI(QImage)));
+    //QObject::connect(myPlayer, SIGNAL(updateProgressBar(int)),
+    //                          this, SLOT(updateProgressBar(int)));
     ui->setupUi(this);
 }
 
@@ -58,9 +62,17 @@ void MainWindow::on_playStopButton_clicked()
     {
         myPlayer->Play();
         ui->playStopButton->setText(tr("Stop"));
+        ui->playStopButton->setIcon(QIcon("/home/rubens/stage/images/stop.png"));
     }else
     {
         myPlayer->Stop();
         ui->playStopButton->setText(tr("Play"));
+        ui->playStopButton->setIcon(QIcon("/home/rubens/stage/images/go.png"));
     }
+}
+
+void MainWindow::on_saveVideo_clicked()
+{
+    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
+    qDebug() << fichier;
 }

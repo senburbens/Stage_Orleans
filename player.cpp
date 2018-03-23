@@ -7,6 +7,7 @@ Player::Player(QObject *parent)
 {
     stop = true;
     camera =false;
+    adresseCamera = "rtsp://fab:fab@192.168.0.20:554/live.sdp";
 }
 
 bool Player::loadVideo(string filename) {
@@ -23,6 +24,12 @@ bool Player::loadVideo(string filename) {
 //Methode fromCamera
 void Player::fromCamera(){
    camera = true;
+   //capture.open(adresseCamera);
+   capture.open(0);
+   //capture.open(0);
+   frame_width=   capture.get(CV_CAP_PROP_FRAME_WIDTH);
+   frame_height=   capture.get(CV_CAP_PROP_FRAME_HEIGHT);
+   videoWriter = VideoWriter("../savedVideos/out.avi",CV_FOURCC('M','J','P','G'),10, Size(frame_width,frame_height),true);
 }
 
 void Player::Play()
@@ -41,7 +48,7 @@ void Player::run()
         //capture.release();
         //this->Stop();
 
-        if(!capture.open("rtsp://fab:fab@192.168.0.20:554/live.sdp"))
+        if(!capture.isOpened())
                 return ;
 
         for(;;)
@@ -63,6 +70,7 @@ void Player::run()
                                      frame.cols,frame.rows,QImage::Format_Indexed8);
             }
             emit processedImage(img);
+            videoWriter.write(frame);
             this->Play();
         }
     }else{
