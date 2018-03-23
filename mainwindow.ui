@@ -56,7 +56,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../Desktop/browser.ico</normaloff>../Desktop/browser.ico</iconset>
+         <normaloff>../Desktop/stage/Stage_Orleans/images/browser.ico</normaloff>../Desktop/stage/Stage_Orleans/images/browser.ico</iconset>
        </property>
       </widget>
      </item>
@@ -70,7 +70,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../Desktop/camera.jpg</normaloff>../Desktop/camera.jpg</iconset>
+         <normaloff>../Desktop/stage/Stage_Orleans/images/camera.jpg</normaloff>../Desktop/stage/Stage_Orleans/images/camera.jpg</iconset>
        </property>
       </widget>
      </item>
@@ -117,7 +117,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../Desktop/save.jpeg</normaloff>../Desktop/save.jpeg</iconset>
+         <normaloff>../Desktop/stage/Stage_Orleans/images/save.jpeg</normaloff>../Desktop/stage/Stage_Orleans/images/save.jpeg</iconset>
        </property>
       </widget>
      </item>

@@ -30,6 +30,10 @@ MainWindow::~MainWindow(){
 
 
 void MainWindow::on_loadButton_clicked(){
+    ui->connectToCamera->setEnabled(true);
+    ui->loadButton->setEnabled(false);
+    ui->playStopButton->setEnabled(true);
+
     myPlayer->Stop();
     myPlayer->desactiverCamera();
     ui->playStopButton->setText(tr("Play"));
@@ -49,6 +53,9 @@ void MainWindow::on_loadButton_clicked(){
 
 void MainWindow::on_connectToCamera_clicked()
 {
+    ui->loadButton->setEnabled(true);
+    ui->connectToCamera->setEnabled(false);
+    ui->playStopButton->setEnabled(true);
 
     ui->playStopButton->setText("Play");
     myPlayer->fromCamera();
@@ -57,6 +64,7 @@ void MainWindow::on_connectToCamera_clicked()
 
 void MainWindow::on_playStopButton_clicked()
 {
+    ui->playStopButton->setEnabled(true);
 
     if (myPlayer->isStopped())
     {
