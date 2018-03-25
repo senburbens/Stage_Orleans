@@ -7,9 +7,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     myPlayer = new Player();
     QObject::connect(myPlayer, SIGNAL(processedImage(QImage)),
                               this, SLOT(updatePlayerUI(QImage)));
+    QObject::connect(myPlayer, SIGNAL(updateProgressBarSignal(int)),
+                              this, SLOT(updateProgressBar(int)));
     //QObject::connect(myPlayer, SIGNAL(updateProgressBar(int)),
     //                          this, SLOT(updateProgressBar(int)));
     ui->setupUi(this);
+    //this->setFixedSize();
+    this->setWindowTitle("Application de detection et de suivi d'objets dans une scene");
 }
 
 
@@ -31,8 +35,9 @@ MainWindow::~MainWindow(){
 
 void MainWindow::on_loadButton_clicked(){
     ui->connectToCamera->setEnabled(true);
-    ui->loadButton->setEnabled(false);
+    //ui->loadButton->setEnabled(false);
     ui->playStopButton->setEnabled(true);
+    ui->saveVideo->setEnabled(false);
 
     myPlayer->Stop();
     myPlayer->desactiverCamera();
@@ -47,7 +52,16 @@ void MainWindow::on_loadButton_clicked(){
             msgBox.setText("The selected video could not be opened!");
             msgBox.exec();
         }
-    }
+        ui->progressBar->setVisible(true);
+        }else{
+            ui->loadButton->setEnabled(true);
+            ui->connectToCamera->setEnabled(true);
+            ui->comboBox->setEnabled(false);
+            ui->saveVideo->setEnabled(false);
+            ui->playStopButton->setText(tr("Play"));
+            ui->playStopButton->setIcon(QIcon("/home/rubens/stage/images/go.png"));
+            ui->playStopButton->setEnabled(false);
+        }
 }
 
 
@@ -56,6 +70,9 @@ void MainWindow::on_connectToCamera_clicked()
     ui->loadButton->setEnabled(true);
     ui->connectToCamera->setEnabled(false);
     ui->playStopButton->setEnabled(true);
+    ui->saveVideo->setEnabled(true);
+    ui->progressBar->setVisible(false);
+    ui->comboBox->setEnabled(true);
 
     ui->playStopButton->setText("Play");
     myPlayer->fromCamera();
@@ -81,6 +98,12 @@ void MainWindow::on_playStopButton_clicked()
 
 void MainWindow::on_saveVideo_clicked()
 {
-    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
+    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer la video", QString(), "Videos (*.avi )");
     qDebug() << fichier;
+    myPlayer->setPathToSave(fichier);
+
+}
+
+void MainWindow::updateProgressBar(int t){
+   ui->progressBar->setValue(t);
 }

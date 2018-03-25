@@ -30,6 +30,7 @@ private slots:
     void on_playStopButton_clicked();
     //TO save the video streaming of the camera
     void on_saveVideo_clicked();
+    void updateProgressBar(int t);
 
 private:
     Ui::MainWindow *ui;

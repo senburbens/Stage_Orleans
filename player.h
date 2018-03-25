@@ -29,10 +29,12 @@ class Player : public QThread
     VideoWriter videoWriter;
     int frame_width;
     int frame_height;
+    string pathToSave;
 
  signals:
  //Signal to output frame to be displayed
       void processedImage(const QImage &image);
+      void updateProgressBarSignal(const int time);
 
  protected:
      void run();
@@ -53,5 +55,7 @@ class Player : public QThread
     //check if the player has been stopped
     bool isStopped() const;
     void desactiverCamera();
+    void activerCamera();
+    void setPathToSave(QString p);
 };
 #endif // VIDEOPLAYER_H

@@ -1,5 +1,8 @@
 #include "player.h"
 #include <QDebug>
+#include <iostream>
+
+using namespace std;
 
 
 Player::Player(QObject *parent)
@@ -7,6 +10,7 @@ Player::Player(QObject *parent)
 {
     stop = true;
     camera =false;
+    pathToSave = "../savedVideos/out.avi";
     adresseCamera = "rtsp://fab:fab@192.168.0.20:554/live.sdp";
 }
 
@@ -23,13 +27,15 @@ bool Player::loadVideo(string filename) {
 
 //Methode fromCamera
 void Player::fromCamera(){
+
    camera = true;
    //capture.open(adresseCamera);
    capture.open(0);
    //capture.open(0);
    frame_width=   capture.get(CV_CAP_PROP_FRAME_WIDTH);
    frame_height=   capture.get(CV_CAP_PROP_FRAME_HEIGHT);
-   videoWriter = VideoWriter("../savedVideos/out.avi",CV_FOURCC('M','J','P','G'),10, Size(frame_width,frame_height),true);
+   videoWriter = VideoWriter(pathToSave, CV_FOURCC('M','J','P','G'),10, Size(frame_width,frame_height),true);
+
 }
 
 void Player::Play()
@@ -75,8 +81,13 @@ void Player::run()
         }
     }else{
         int delay = (1000/frameRate);
+        int time = (int) ((capture.get(CV_CAP_PROP_POS_FRAMES)/capture.get(CV_CAP_PROP_FRAME_COUNT))*100);
 
         while(!stop){
+
+            time = (int) ((capture.get(CV_CAP_PROP_POS_FRAMES)/capture.get(CV_CAP_PROP_FRAME_COUNT))*100);
+            //cout << time;
+
             if (!capture.read(frame))
             {
                 stop = true;
@@ -92,6 +103,7 @@ void Player::run()
                                      frame.cols,frame.rows,QImage::Format_Indexed8);
             }
             emit processedImage(img);
+            emit updateProgressBarSignal(time);
             this->msleep(delay);
         }
     }
@@ -128,4 +140,16 @@ bool Player::isStopped() const{
 
 void Player::desactiverCamera(){
     camera = false;
+    capture.release();
+}
+
+void Player::activerCamera(){
+    camera = true;
+
+}
+
+void Player::setPathToSave(QString p){
+    this->pathToSave = p.toStdString();
+    //cout << pathToSave;
+    videoWriter = VideoWriter(pathToSave, CV_FOURCC('M','J','P','G'),10, Size(frame_width,frame_height),true);
 }
